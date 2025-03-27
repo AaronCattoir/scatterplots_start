@@ -1,0 +1,31 @@
+relationship AutoDetected_9e46d8ba-eedf-48df-af0e-1cc7adfc1b6f
+	fromColumn: Sales.CustomerKey
+	toColumn: Customer.CustomerKey
+
+relationship AutoDetected_79577000-7c38-4b9b-a523-4247d7130841
+	fromColumn: Sales.ProductKey
+	toColumn: Product.ProductKey
+
+relationship AutoDetected_d5a4bd50-2d3b-43c6-8df1-197874cfdd22
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: SalesOrder.SalesOrderLineKey
+	toColumn: Sales.SalesOrderLineKey
+
+relationship AutoDetected_29c0eb29-7e68-4c49-98f9-bfe39577744e
+	fromColumn: Sales.ResellerKey
+	toColumn: Reseller.ResellerKey
+
+relationship AutoDetected_65f88bf3-e086-427a-b90b-bc5f64024074
+	fromColumn: Sales.SalesTerritoryKey
+	toColumn: SalesTerritory.SalesTerritoryKey
+
+relationship 4a2b09cb-80f2-aa6a-ee83-90bdf9bdf229
+	fromColumn: Sales.OrderDateKey
+	toColumn: Date.DateKey
+
+relationship 2c651dfb-8a31-0f32-9b13-341101d07c46
+	isActive: false
+	fromColumn: Sales.DueDateKey
+	toColumn: Date.DateKey
+

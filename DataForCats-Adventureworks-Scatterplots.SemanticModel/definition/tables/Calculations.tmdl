@@ -1,0 +1,48 @@
+table Calculations
+	lineageTag: 4394f5ca-767d-43fe-9111-7de38f7bdc87
+
+	measure 'Avg. Gross Profit Margin' = AVERAGEX(Sales, DIVIDE([Sum Margin], [Sum Sales Amount]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: ad06c94a-d25e-4eb2-a741-829dbbd312d2
+
+	measure 'Avg. Dollars per Unit' = DIVIDE([Sum Sales Amount], [Sum Order Quantity])
+		lineageTag: ed3b678e-de2c-47c4-80ec-cba5df4a6ba4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Gross Profit Margin' = DIVIDE([Sum Margin], [Sum Sales Amount])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: bc6338d9-782b-458d-af07-031261780ff5
+
+	measure 'Sum Margin' = SUM(Sales[Margin])
+		lineageTag: a7b06f30-b688-460c-9e11-2d6df7a39972
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sum Order Quantity' = SUM(Sales[Order Quantity])
+		formatString: 0
+		lineageTag: 160e9578-645f-45b9-b6bc-d0ae0103e8d4
+
+	measure 'Sum Sales Amount' = SUM(Sales[Sales Amount])
+		lineageTag: 520f0359-cf91-4260-a348-12c13e8803f1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 2d5b21be-6141-470f-82fd-032784ca6e99
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calculations = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = d301d33bec95409589614c4590ede066
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

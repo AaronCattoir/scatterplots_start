@@ -1,0 +1,50 @@
+table SalesTerritory
+	lineageTag: dabd43ea-4b82-4859-9272-47f38e780587
+
+	column SalesTerritoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: f75059bf-da8a-4ac5-96b8-403c5dcb20e3
+		summarizeBy: none
+		sourceColumn: SalesTerritoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: b1e188d6-f862-4f04-8a12-b3305cf8314c
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: 45c415d7-a640-4ecb-8623-30ab9684e9e1
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Group
+		dataType: string
+		lineageTag: d193cc4b-5d86-45d3-a8b2-5178a02a529a
+		summarizeBy: none
+		sourceColumn: Group
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SalesTerritory = m
+		mode: import
+		source =
+				let
+				    Source = excel_source,
+				    SalesTerritory_Table = Source{[Item="SalesTerritory",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(SalesTerritory_Table,{{"SalesTerritoryKey", Int64.Type}, {"Region", type text}, {"Country", type text}, {"Group", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

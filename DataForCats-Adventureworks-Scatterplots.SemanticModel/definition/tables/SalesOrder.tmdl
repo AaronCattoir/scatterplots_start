@@ -1,0 +1,50 @@
+table SalesOrder
+	lineageTag: 045c13b9-b18f-47c4-8214-6f4260172a76
+
+	column Channel
+		dataType: string
+		lineageTag: 22f2a33d-c64c-4ccd-9292-8ae2cbef407c
+		summarizeBy: none
+		sourceColumn: Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesOrderLineKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 00245e49-33e3-4be4-ab1c-ac6a2941055b
+		summarizeBy: none
+		sourceColumn: SalesOrderLineKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Order'
+		dataType: string
+		lineageTag: 14f8aac1-2cbc-43a9-8e08-f2c4cb0dbfc3
+		summarizeBy: none
+		sourceColumn: Sales Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Order Line'
+		dataType: string
+		lineageTag: 2127020a-d2d2-4625-993b-943ca082c4e2
+		summarizeBy: none
+		sourceColumn: Sales Order Line
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SalesOrder = m
+		mode: import
+		source =
+				let
+				    Source = excel_source,
+				    SalesOrder_Table = Source{[Item="SalesOrder",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(SalesOrder_Table,{{"Channel", type text}, {"SalesOrderLineKey", Int64.Type}, {"Sales Order", type text}, {"Sales Order Line", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

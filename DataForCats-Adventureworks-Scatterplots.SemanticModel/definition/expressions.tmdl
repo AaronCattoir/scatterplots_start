@@ -1,0 +1,43 @@
+expression get_path =
+		let
+		    Source = () => let
+		        Source = Text.FromBinary(File.Contents("C:\pbi_scatter\path_to_excel.txt")),
+		        FirstValue = Text.Trim(Source)
+		    in
+		        FirstValue
+		in
+		    Source
+	mAttributes: [ FunctionQueryBinding = "{""exemplarFormulaName"":""path_to_excel""}" ]
+	lineageTag: 83b9667c-17e9-444b-9574-da024d2163fe
+	queryGroup: get_path
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Function
+
+expression excel_source =
+		let
+		    ParameterValue = get_path(),
+		    Source = Excel.Workbook(File.Contents(Text.From(ParameterValue)), null, true)
+		in
+		    Source
+	lineageTag: 16667e2f-99ad-4d48-b511-d736ebf77c62
+	queryGroup: get_path
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression path_to_excel =
+		let
+		    Source = Text.FromBinary(File.Contents("C:\pbi_scatter\path_to_excel.txt")),
+		    FirstValue = Text.Trim(Source)
+		in
+		    FirstValue
+	lineageTag: 1b7d736b-cf38-47bf-aa37-980e2d3fee5c
+	queryGroup: get_path
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
